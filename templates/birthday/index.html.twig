@@ -1,18 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BirthdayController!{% endblock %}
+{% block title %}Birthday index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-    <h1>Date anniversaire</h1>
-    {{ form_start(form) }}
-        <div class="my-custom-class-for-errors">
-            {{ form_errors(form) }}
-        </div>
-        {{ form_row(form) }}
-        <button type="submit">Envoyer</button>
-    {{ form_end(form) }}
+    <h1>Birthday index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Birthdate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for birthday in birthdays %}
+            <tr>
+                <td>{{ birthday.id }}</td>
+                <td>{{ birthday.firstname }}</td>
+                <td>{{ birthday.lastname }}</td>
+                <td>{{ birthday.birthdate ? birthday.birthdate|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_birthday_show', {'id': birthday.id}) }}">show</a>
+                    <a href="{{ path('app_birthday_edit', {'id': birthday.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_birthday_new') }}">Create new</a>
 {% endblock %}
