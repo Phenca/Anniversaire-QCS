@@ -11,17 +11,32 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-
+# Faire les fixtures + le trie par date qui arrivent dans les 40 prochains jours
 #[Route('/birthday')]
 class BirthdayController extends AbstractController
 {
-    #[Route('/', name: 'app_birthday_index', methods: ['GET'])]
-    public function index(BirthdayRepository $birthdayRepository): Response
+    #[Route('/', name: 'app_birthday_index', methods: ['GET', 'POST'])]
+    public function index(Request $request, BirthdayRepository $birthdayRepository): Response
     {
+        $form = $this->createForm(FilterType::class);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $birthdays = $birthdayRepository->findBy(
+                ['date' => ['gte' => new \DateTime()]], // condition
+                ['date' => 'ASC'], // order
+                40 // limit
+            );
+        } else {
+            $birthdays = $birthdayRepository->findAll();
+        }
+    
         return $this->render('birthday/index.html.twig', [
-            'birthdays' => $birthdayRepository->findAll(),
+            'form' => $form->createView(),
+            'birthdays' => $birthdays,
         ]);
     }
+    
 
     #[Route('/new', name: 'app_birthday_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

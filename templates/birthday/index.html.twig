@@ -4,7 +4,10 @@
 
 {% block body %}
     <h1>Birthday index</h1>
-
+    {{ form_start(form) }}
+        {{ form_row(form.filtre) }}
+            <button class="btn">{{ button_label|default('Filtrer') }}</button>
+    {{ form_end(form) }}
     <table class="table">
         <thead>
             <tr>
