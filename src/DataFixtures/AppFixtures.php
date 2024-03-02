@@ -14,7 +14,7 @@ class AppFixtures extends Fixture
         $first_names = ["Alice", "Bob", "Charlie", "David", "Emma", "Frank", "Grace", "Henry", "Ivy", "Jack"];
         $last_names = ["Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"];
         for ($i = 0; $i < 50; $i++) {
-            $random_date_from_timestamp = mt_rand(strtotime('1950-01-01'), strtotime('2000-12-31'));
+            $random_date_from_timestamp = mt_rand(strtotime('1950-01-01'), strtotime('2010-12-31'));
             $birthdate = new DateTime();
             $birthdate->setTimestamp($random_date_from_timestamp);
 

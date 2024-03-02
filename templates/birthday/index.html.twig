@@ -4,10 +4,14 @@
 
 {% block body %}
     <h1>Birthday index</h1>
-    {{ form_start(form) }}
-        {{ form_row(form.filtre) }}
-            <button class="btn">{{ button_label|default('Filtrer') }}</button>
-    {{ form_end(form) }}
+    {{ form_start(filter_form)}}
+
+        {{ form_widget(filter_form.filter ) }}
+        {{ form_label(filter_form.filter ) }}
+        {{ form_errors(filter_form.filter ) }}
+        {{ form_help(filter_form.filter ) }}
+            <button type="submit" class="btn">{{ button_label|default('Filtrer') }}</button>
+    {{ form_end(filter_form) }}
     <table class="table">
         <thead>
             <tr>

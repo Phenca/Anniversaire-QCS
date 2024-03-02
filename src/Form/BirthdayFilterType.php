@@ -3,20 +3,21 @@
 namespace App\Form;
 
 use App\Entity\Birthday;
-use App\Entity\Todo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class DoneType extends AbstractType
+class BirthdayFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('filter', CheckboxType::class, [
-                'label' => 'Filtre par date : ',
-                'required' => false,
+        ->add('filter', CheckboxType::class, [
+            'label' => 'Afficher les prochains anniversaires : ',
+            'mapped' => false,
+            'required' => false,
+            
         ]);
     }
 
